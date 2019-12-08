@@ -12,14 +12,12 @@ public class Player : MonoBehaviour
     private int _score = 0;
 
     [SerializeField] private GameObject _uiManager;
-private float _yVelocity;
-    // Start is called before the first frame update
+    private float _yVelocity;
     void Start()
     {
         _controller = GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -28,9 +26,10 @@ private float _yVelocity;
 
         if (!_controller.isGrounded)
         {
-            if(Input.GetKeyDown(KeyCode.Space) && _canDoubleJump){
+            if (Input.GetKeyDown(KeyCode.Space) && _canDoubleJump)
+            {
                 _yVelocity += _jumpHeight;
-            _canDoubleJump = false;
+                _canDoubleJump = false;
             }
             _yVelocity -= _gravity;
         }
@@ -39,6 +38,10 @@ private float _yVelocity;
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 _yVelocity = _jumpHeight;
+                if (transform.parent != null)
+                {
+                    transform.parent = null;
+                }
                 _canDoubleJump = true;
             }
         }
@@ -46,8 +49,9 @@ private float _yVelocity;
         _controller.Move(velocity * Time.deltaTime);
     }
 
-    public void CountScore(int score){
-_score += score;
-_uiManager.gameObject.GetComponent<UIManager>().UpdateCoins(_score);
+    public void CountScore(int score)
+    {
+        _score += score;
+        _uiManager.gameObject.GetComponent<UIManager>().UpdateCoins(_score);
     }
 }
