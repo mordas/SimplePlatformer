@@ -31,12 +31,10 @@ public class MovingPlatform : MonoBehaviour
 
         if (transform.position == _point_B)
         {
-            Debug.Log("B");
             _switching = true;
         }
         else if (transform.position == _point_A)
         {
-            Debug.Log("A");
             _switching = false;
         }
 
@@ -51,7 +49,6 @@ public class MovingPlatform : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Collider ends");
         if (other.CompareTag("Player"))
         {
             other.transform.parent = null;
